@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery-3.4.1.min.js"> </script>
+    <script src="../js/bootstrap.bundle.min.js"> </script>
+    <script src="../js/products.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Sự kiện blur cho tên đăng nhập
+            $('#username').blur(function() {
+                var username = $(this).val(); // Lấy giá trị tên đăng nhập từ trường nhập
+
+                var usernameRegex = /^[a-zA-Z0-9_]+$/;
+
+                // Kiểm tra định dạng tên đăng nhập
+                if (!usernameRegex.test(username)) {
+                    $('#usernameError').text('Tên đăng nhập không hợp lệ'); // Hiển thị cảnh báo
+                } else {
+                    $('#usernameError').text(''); // Xóa cảnh báo nếu tên đăng nhập hợp lệ
+                }
+            });
+
+            // Sự kiện blur cho mật khẩu
+            $('#password').blur(function() {
+                var password = $(this).val();
+
+                // Kiểm tra độ dài mật khẩu
+                if (password.length < 6) {
+                    $('#passwordError').text('Mật khẩu phải có ít nhất 6 ký tự');
+                } else {
+                    $('#passwordError').text('');
+                }
+            });
+
+            // Sự kiện blur cho nhập lại mật khẩu
+            $('#confirmPassword').blur(function() {
+                var password = $('#password').val();
+                var confirmPassword = $(this).val();
+
+                // Kiểm tra mật khẩu nhập lại có khớp với mật khẩu không
+                if (password !== confirmPassword) {
+                    $('#confirmPasswordError').text('Mật khẩu nhập lại không khớp');
+                } else {
+                    $('#confirmPasswordError').text('');
+                }
+            });
+
+            // Sự kiện blur cho email
+            $('#email').blur(function() {
+                var email = $(this).val();
+
+                // Biểu thức chính quy để kiểm tra định dạng email
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                // Kiểm tra định dạng email
+                if (!emailRegex.test(email)) {
+                    $('#emailError').text('Email không hợp lệ');
+                } else {
+                    $('#emailError').text('');
+                }
+            });
+
+            // Xử lý sự kiện submit của form
+            $('#registerForm').submit(function(event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                // Lấy giá trị của các trường input
+                var username = $('#username').val();
+                var password = $('#password').val();
+                var confirmPassword = $('#confirmPassword').val();
+                var email = $('#email').val();
+
+                // Biểu thức chính quy để kiểm tra định dạng email
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                // Kiểm tra mật khẩu nhập lại có khớp với mật khẩu không
+                if (password !== confirmPassword) {
+                    alert('Mật khẩu nhập lại không khớp');
+                    return;
+                }
+
+                // Kiểm tra định dạng email
+                if (!emailRegex.test(email)) {
+                    alert('Email không hợp lệ');
+                    return;
+                }
+
+                // Biểu thức chính quy để kiểm tra định dạng tên đăng nhập
+                var usernameRegex = /^[a-zA-Z0-9_]+$/;
+
+                // Kiểm tra định dạng tên đăng nhập
+                if (!usernameRegex.test(username)) {
+                    alert('Tên đăng nhập không hợp lệ');
+                    return;
+                }
+
+                // Lưu thông tin đăng ký vào Local Storage
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+                localStorage.setItem('email', email);
+
+                // Chuyển trang đến trang đăng nhập
+                window.location.href = 'dangnhap.html';
+            });
+        });
+    </script>
+</head>
+
+
+</head>
+
+<body>
+    <div style="height: 100%;" class="container-fuild">
+        <div class="container-fluid header-content">
+            <div class="container ">
+                <div style="height: 80px;" class="row d-flex align-items-center justify-content-center ">
+                    <div class="col-2">
+                        <h3 style="color: white; font-style: italic;">Máy Hút Bụi</h3>
+                    </div>
+                    <div class="col-5">
+                        <form action="" class="d-flex ">
+                            <input placeholder="Tìm kiếm sản phẩm" class="form-control" type="text">
+                            <button style="width: 55px; height: 40px;" class="btn btn-warning"> <img
+                                    src="../img/icon/btsearch.png" alt=""> </button>
+                        </form>
+                    </div>
+                    <div class="col-5 d-flex justify-content-between align-items-center">
+                        <div class="sanPhamDaXem d-flex align-items-center justify-content-center">
+                            Sản phẩm đã xem
+                            <i class="bi bi-caret-down"></i>
+                        </div>
+                        <div>
+                            <span>0777476677</span>
+                            <br>
+                            <span>Hotline</span>
+                        </div>
+                        <div class="taiKhoan-gioHang">
+                            <a href="#"><i style="font-size: 30px !important; color: white;"
+                                    class="bi bi-person"></i></a>
+                        </div>
+                        <div class="taiKhoan-gioHang">
+                            <a href="thanhtoan.html" id="cart-icon" onmouseover="showCartItems()">
+                                <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
+                                <span style="color: black;" id="cart-item-count"
+                                    class="badge bg-warning rounded-circle">0</span>
+                            </a>
+
+                            <div id="cart-items-container" class="cart-items-container">
+                                <!-- Danh sách các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 50px;" class="container-fluid ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 p-0 ">
+                        <a style="text-decoration: none; color: black; width: 200px;" href="../index.html"
+                            class="d-flex align-items-center">
+                            <div style="height: 50px; width: 70px;"> <img src="../img/icon/Mayhutbui120-120x120.png"
+                                    style="border: 1px solid; border-radius: 50%;" alt="" width="100%" height="100%">
+                            </div>
+                            <span style="margin-left: 4px;">Máy hút bụi</span>
+                        </a>
+                    </div>
+                    <div class="col-9 p-0 ">
+
+                        <div class="navbar navbar-expand ">
+                            <ul class="navbar-nav menu">
+                                <li class="nav-item"><a href="gioithieu.html" class="nav-link  ">Giới thiệu</a></li>
+                                <li class="nav-item"><a href="tintuc.html" class="nav-link">Tin tức</a></li>
+                                <li class="nav-item"><a href="khuyenmai.html" class="nav-link">Khuyễn mãi hot</a></li>
+                                <li class="nav-item"><a href="lienhe.html" class="nav-link">Liên hệ</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="background-color: rgb(217, 217, 217);" class="container mt-5 ">
+            <h1 style="font-size: 22px;
+            font-weight: 600;
+            color: #b91409;
+            margin: 5px 0 15px 0;">Tài khoản</h1>
+            <div class="col-6">
+                <form action="" id="registerForm">
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label for="" id="">Tên đăng nhập</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control " type="text" name="" id="username">
+                        </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8"><small style="color: red;" id="usernameError">*</small></div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label for="">Mật khẩu</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control " type="password" name="" id="password">
+                        </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8"><small style="color: red;" id="passwordError">*</small></div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label for="">Nhập lại mật khẩu</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control " type="password" name="" id="confirmPassword">
+                        </div>  
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8"><small style="color: red;" id="passwordError">*</small></div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label for="">Nhập email</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control " type="email" name="" id="email">
+                        </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8"><small style="color: red;" id="emailError">*</small></div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-8">
+                            <label for="">Ghi nhớ mật khẩu</label>
+                            <input type="checkbox">
+                        </div>
+                        <div class="col-4">
+                            <a href="dangnhap.html">Đăng nhập</a>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-primary form-control">Đăng ký</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6"></div>
+        </div>
+
+
+
+    </div>
+
+    <footer>
+        <div style="text-align: center;" class="container mt-5 ">
+            <div class="row">
+                <div class="col-md-4 ml-3">
+                    <h4>50,Nguyễn Văn Bảo,Gò Vấp ,TPHCM</h4>
+                    <p>Đại Học Côn Nghiệp</p>
+                    <p>Số điện thoại: 0123 456 789</p>
+                    <p>Email: klekle@gmail.com</p>
+
+                </div>
+                <div class="col-md-4">
+                    <h4>Liên kết hữu ích</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Thông tin bổ sung</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Điều khoản và điều kiện</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p>© 2024 Máy Hút Bụi - Tất cả các quyền được bảo lưu</p>
+            <p>Hãy để chúng tôi giúp bạn giữ nhà của bạn luôn sạch sẽ và thoải mái!</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

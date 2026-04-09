@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức - Máy Hút Bụi</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript để điều khiển hiển thị nội dung chi tiết
+        $(document).ready(function () {
+            $(".read-more-btn").click(function () {
+                $(this).siblings(".card-text").toggleClass("show");
+                $(this).text(function (i, text) {
+                    return text === "Đọc Thêm" ? "Thu gọn" : "Đọc Thêm";
+                });
+            });
+        });
+    </script>
+    <style>
+        /* CSS cho phần nội dung chi tiết */
+        .card-text {
+            overflow: hidden;
+            max-height: 50px;
+            transition: max-height 0.3s ease;
+        }
+
+        .card-text.show {
+            max-height: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid bg-light">
+        <!-- Code navbar và header -->
+        <div class="container-fluid header-content">
+            <div class="container ">
+                <div style="height: 80px;" class="row d-flex align-items-center justify-content-center ">
+                    <div class="col-2">
+                        <h3 style="color: white; font-style: italic;">Máy Hút Bụi</h3>
+                    </div>
+                    <div class="col-5">
+                        <form action="" class="d-flex ">
+                            <input placeholder="Tìm kiếm sản phẩm" class="form-control" type="text">
+                            <button style="width: 55px; height: 40px;" class="btn btn-warning"> <img
+                                    src="../img/icon/btsearch.png" alt=""> </button>
+                        </form>
+                    </div>
+                    <div class="col-5 d-flex justify-content-between align-items-center">
+                        <div class="sanPhamDaXem d-flex align-items-center justify-content-center">
+                            Sản phẩm đã xem
+                            <i class="bi bi-caret-down"></i>
+                        </div>
+                        <div>
+                            <span>0777476677</span>
+                            <br>
+                            <span>Hotline</span>
+                        </div>
+                        <div class="taiKhoan-gioHang">
+                            <a href="#"><i style="font-size: 30px !important; color: white;"
+                                    class="bi bi-person"></i></a>
+                                    <div class="dropdown-content">
+
+                                        <a href="dangnhap.html">Đăng nhập</a>
+                                        <br>
+                                      <br>
+                                        
+                                        <a href="dangky.html">Đăng ký</a>
+                                    </div>  
+                        </div>
+                        <div class="taiKhoan-gioHang">
+                            <a href="thanhtoan.html" id="cart-icon" onmouseover="showCartItems()">
+                                <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
+                                <span style="color: black;" id="cart-item-count"
+                                    class="badge bg-warning rounded-circle">0</span>
+                            </a>
+
+                            <div id="cart-items-container" class="cart-items-container">
+                                <!-- Danh sách các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
+                            </div>
+
+                        </div>      
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 50px;" class="container-fluid ">
+            <div class="container ">
+            <div class="row">
+                <div class="col-3 p-0 ">
+                    <a style="text-decoration: none; color: black; width: 200px;" href="../index.html"
+                        class="d-flex align-items-center">
+                        <div style="height: 50px; width: 70px;"> <img src="../img/icon/Mayhutbui120-120x120.png"
+                                style="border: 1px solid; border-radius: 50%;" alt="" width="100%" height="100%"></div>
+                        <span style="margin-left: 4px;">Máy hút bụi</span>
+                    </a>
+                </div>
+                <div class="col-9 p-0 ">
+
+                    <div class="navbar navbar-expand ">
+                        <ul class="navbar-nav menu">
+                            <li class="nav-item"><a href="gioithieu.html" class="nav-link">Giới thiệu</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link active">Tin tức</a></li>
+                            <li class="nav-item"><a href="khuyenmai.html" class="nav-link">Khuyễn mãi hot</a></li>
+                            <li class="nav-item"><a href="lienhe.html" class="nav-link">Liên hệ</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>  
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Tin Tức</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/image.png" class="card-img-top" alt="Tin Tức 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Cách chọn lựa máy hút bụi phù hợp</h5>
+                        <p class="card-text">Những lời khuyên giúp bạn chọn lựa được chiếc máy hút bụi phù hợp nhất với
+                            nhu cầu sử dụng của mình.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+
+                        <div class="card-text">
+
+                            <ul>
+                                <li>Loại máy hút bụi</li>
+                                <li>Công suất hút</li>
+                                <li>Hệ thống lọc</li>
+                                <li>Dung tích thùng chứa</li>
+                                <li>Phụ kiện và tính năng</li>
+                                <li>Giá cả</li>
+                                Lựa chọn máy hút bụi phù hợp sẽ giúp bạn có công cụ hiệu quả để làm sạch nhà cửa của mình
+                                một cách dễ dàng và tiện lợi.
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức thứ 2 -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/may_hut_bui_dyson_kham_pha_cong_nghe_tien_tien_va_khac_biet_16083905042023.jpg" style="height: 75%; width: 90%;" class="card-img-top" alt="Tin Tức 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Những công nghệ tiên tiến trong máy hút bụi</h5>
+                        <p class="card-text">Khám phá những công nghệ mới nhất được áp dụng vào các dòng máy hút bụi
+                            hiện đại.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+                        <div class="card-text">
+                            <ul>
+                                <li>Cyclone Technology: Tận dụng lực ly tâm để tách bụi và bụi mịn khỏi không khí.</li>
+                                <li>Bộ lọc HEPA: Loại bỏ hơn 99,97% các hạt bụi có kích thước 0,3 micron.</li>
+                                <li>Cảm biến thông minh: Điều chỉnh hoạt động dựa trên cảm biến chướng ngại vật và cảm biến lượng bụi.</li>
+                                <li>Hệ thống tự làm sạch: Tự động làm sạch bộ lọc hoặc thùng chứa bụi để duy trì hiệu suất.</li>
+                                <li>Kết nối Wi-Fi: Điều khiển từ xa và lập kế hoạch làm sạch qua ứng dụng trên điện thoại di động.</li>
+                                <li>Công nghệ hút mạnh kép: Kết hợp hút chân không và hút bụi, loại bỏ bụi và rác hiệu quả.</li>
+                                <li>Điều chỉnh chế độ hút: Tùy chỉnh chế độ hút phù hợp với loại bề mặt đang làm sạch.</li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức thứ 3 -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/image.png" class="card-img-top" alt="Tin Tức 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Sự khác biệt giữa máy hút bụi thông thường và máy hút bụi không dây</h5>
+                        <p class="card-text">Tìm hiểu về ưu nhược điểm của hai loại máy hút bụi phổ biến trên thị trường
+                            hiện nay.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức thứ 4 -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/image.png" class="card-img-top" alt="Tin Tức 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Cách vệ sinh và bảo dưỡng máy hút bụi</h5>
+                        <p class="card-text">Những bước cơ bản để bảo quản và duy trì hiệu suất hoạt động của máy hút
+                            bụi.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức thứ 5 -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/image.png" class="card-img-top" alt="Tin Tức 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Làm thế nào để chọn lọc bộ lọc HEPA cho máy hút bụi?</h5>
+                        <p class="card-text">Những điều cần lưu ý khi chọn lựa bộ lọc HEPA cho máy hút bụi của bạn.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức thứ 6 -->
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <img src="../img/tintuc/image.png" class="card-img-top" alt="Tin Tức 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Tại sao máy hút bụi không hoạt động hiệu quả?</h5>
+                        <p class="card-text">Các nguyên nhân phổ biến dẫn đến sự giảm hiệu suất của máy hút bụi và cách
+                            khắc phục.</p>
+                        <button class="btn btn-primary read-more-btn">Đọc Thêm</button>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-dark text-light text-center py-4">
+        <div class="container">
+            <p>&copy; 2024 Máy Hút Bụi. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <div class="modal" id="dangKyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Đăng ký Tài Khoản</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="">
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Tên đăng nhập</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="text" name="" id="">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Mật khẩu</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="password" name="" id="">
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Nhập lại mật khẩu</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="password" name="" id="">
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Nhập email</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="email" name="" id="">
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-8">
+                                <label for="">Ghi nhớ mật khẩu</label>
+                                <input type="checkbox">
+                            </div>
+                            <div class="col-4">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#dangNhapModal">Đăng nhập</a>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-primary form-control">Đăng ký</button>
+                            </div>
+                        </div>
+                </div>
+
+
+            </div>
+            </form>
+        </div>
+
+        <!-- Modal footer -->
+
+    </div>
+
+    <!-- Modal đăng nhập -->
+    <div class="modal" id="dangNhapModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Đăng Nhập Tài Khoản</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="">
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Tên đăng nhập</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="text" name="" id="">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label for="">Mật khẩu</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control " type="password" name="" id="">
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mt-4">
+                            <div class="col-8">
+                                <label for="">Ghi nhớ mật khẩu</label>
+                                <input type="checkbox">
+                            </div>
+                            <div class="col-4">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#dangKyModal">Đăng ký</a>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-primary form-control">Đăng Nhập</button>
+                            </div>
+                        </div>
+                </div>
+
+
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

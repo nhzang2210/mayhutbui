@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery-3.4.1.min.js"> </script>
+    <script src="../js/bootstrap.bundle.min.js"> </script>
+    <script src="../js/products.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="fixed">
+            <div class="container-fluid header-content">
+                <div class="container ">
+                    <div style="height: 80px;" class="row d-flex align-items-center justify-content-center ">
+                        <div class="col-2">
+                            <h3 style="color: white; font-style: italic;">Máy Hút Bụi</h3>
+                        </div>
+                        <div class="col-5">
+                            <form action="" class="d-flex ">
+                                <input placeholder="Tìm kiếm sản phẩm" class="form-control" type="text">
+                                <button style="width: 55px; height: 40px;" class="btn btn-warning"> <img
+                                        src="../img/icon/btsearch.png" alt=""> </button>
+                            </form>
+                        </div>
+                        <div class="col-5 d-flex justify-content-between align-items-center">
+                            <div class="sanPhamDaXem d-flex align-items-center justify-content-center">
+                                Sản phẩm đã xem
+                                <i class="bi bi-caret-down"></i>
+                            </div>
+                            <div>
+                                <span>0777476677</span>
+                                <br>
+                                <span>Hotline</span>
+                            </div>
+                            <div class="taiKhoan-gioHang">
+                                <a href="#"><i style="font-size: 30px !important; color: white;"
+                                        class="bi bi-person"></i></a>
+                                <div class="dropdown-content">
+
+                                    <a href="html/dangnhap.html">Đăng nhập</a>
+                                    <br>
+                                    <br>
+
+                                    <a href="html/dangky.html">Đăng ký</a>
+                                </div>
+                            </div>
+                            <div class="taiKhoan-gioHang">
+                                <a href="#" id="cart-icon" onmouseover="showCartItems()">
+                                    <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
+                                    <span style="color: black;" id="cart-item-count"
+                                        class="badge bg-warning rounded-circle">0</span>
+                                </a>
+
+                                <div id="cart-items-container" class="cart-items-container">
+                                    <!-- Danh sách các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 50px;" class="container-fluid header-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 p-0 ">
+                            <a style="text-decoration: none; color: black; width: 200px;" href="../index.html"
+                                class="d-flex align-items-center active ">
+                                <div style="height: 50px; width: 70px;"> <img src="../img/icon/Mayhutbui120-120x120.png"
+                                        style="border: 1px solid; border-radius: 50%;" alt="" width="100%"
+                                        height="100%">
+                                </div>
+                                <span style="margin-left: 4px;">Máy hút bụi</span>
+                            </a>
+                        </div>
+                        <div class="col-9 p-0 ">
+
+                            <div class="navbar navbar-expand ">
+                                <ul class="navbar-nav menu">
+                                    <li class="nav-item"><a href="gioithieu.html" class="nav-link">Giới thiệu</a>
+                                    </li>
+                                    <li class="nav-item"><a href="tintuc.html" class="nav-link">Tin tức</a></li>
+                                    <li class="nav-item"><a href="khuyenmai.html" class="nav-link">Khuyễn mãi
+                                            hot</a>
+                                    </li>
+                                    <li class="nav-item"><a href="lienhe.html" class="nav-link">Liên hệ</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <h1 style="font-size: 22px;
+                font-weight: 600;
+                color: #b91409;
+                margin: 5px 0 15px 0;">Giỏ hàng</h1>
+                <form action="">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tạm tính</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items-table-body">
+                            <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây -->
+                        </tbody>
+                        <tr>
+                            <td colspan="4">
+                                <button id="update-cart-btn"
+                                    style="background-color: #b91409; color: #FFF; line-height: 2.4em; min-height: 2.5em; padding: 0 1.2em;">Cập
+                                    nhật giỏ hàng</button>
+                            </td>
+                            </tr>
+                    </table>
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <h2>Cộng giỏ hàng</h2>
+                        <h3>Tổng tiền : <span class="total-amount"></span></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div style="text-align: center;" class="container mt-5 ">
+            <div class="row">
+                <div class="col-md-4 ml-3">
+                    <h4>50,Nguyễn Văn Bảo,Gò Vấp ,TPHCM</h4>
+                    <p>Đại Học Côn Nghiệp</p>
+                    <p>Số điện thoại: 0123 456 789</p>
+                    <p>Email: klekle@gmail.com</p>
+
+                </div>
+                <div class="col-md-4">
+                    <h4>Liên kết hữu ích</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Sản phẩm</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Thông tin bổ sung</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Điều khoản và điều kiện</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p>© 2024 Máy Hút Bụi - Tất cả các quyền được bảo lưu</p>
+            <p>Hãy để chúng tôi giúp bạn giữ nhà của bạn luôn sạch sẽ và thoải mái!</p>
+        </div>
+    </footer>
+    <script>
+// Hàm hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính
+document.addEventListener('DOMContentLoaded', function () {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var cartItemsTableBody = document.getElementById('cart-items-table-body');
+    var totalAmountElement = document.getElementById('total-amount');
+    var updateCartBtn = document.getElementById('update-cart-btn');
+    // Hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính ban đầu
+    var totalAmount = displayCartItems(cart, cartItemsTableBody);
+
+    // Hiển thị tổng tiền ban đầu
+    totalAmountElement.textContent = totalAmount;
+
+    // Thêm sự kiện click cho nút "Cập nhật giỏ hàng"
+    updateCartBtn.addEventListener('click', function () {
+        updateCart(cart, cartItemsTableBody, totalAmountElement);
+    });
+});
+
+// Hàm hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính
+function displayCartItems(cart, cartItemsTableBody) {
+    var totalAmount = 0;
+
+    // Tạo một đối tượng để theo dõi các sản phẩm trong giỏ hàng đã được hiển thị
+    var displayedProducts = {};
+
+    // Lặp qua các sản phẩm trong giỏ hàng
+    cart.forEach(function (item) {
+        // Kiểm tra xem sản phẩm đã được hiển thị trước đó chưa
+        if (!displayedProducts[item.id]) {
+            var productTotal = item.price * item.quantity;
+            totalAmount += productTotal;
+
+            // Tạo một hàng mới cho sản phẩm
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.title}</td>
+                <td>${item.price}</td>
+                <td><input type="number" id="quantity-${item.id}" value="${item.quantity}" min="1"></td>
+                <td>${productTotal}</td>
+            `;
+            cartItemsTableBody.appendChild(tr);
+
+            // Đánh dấu sản phẩm đã được hiển thị
+            displayedProducts[item.id] = true;
+        }
+    });
+
+    return totalAmount;
+}
+// Hàm cập nhật số lượng và tổng tạm tính của giỏ hàng
+function updateCart(cart, cartItemsTableBody, totalAmountElement) {
+    var totalAmount = 0;
+
+    cart.forEach(function (item) {
+        // Lấy id của ô input số lượng tương ứng với sản phẩm
+        var quantityInputId = `quantity-${item.id}`;
+
+        // Lấy giá trị số lượng mới từ ô input
+        var quantityInput = document.getElementById(quantityInputId);
+        var quantity = parseInt(quantityInput.value);
+
+        // Cập nhật số lượng sản phẩm trong giỏ hàng
+        item.quantity = quantity;
+
+        // Cập nhật tổng tạm tính
+        totalAmount += item.price * item.quantity;
+
+        // Cập nhật giá trị trong cột tổng tiền của sản phẩm
+        var productTotalColumn = quantityInput.parentElement.nextElementSibling;
+        productTotalColumn.textContent = item.price * item.quantity;
+    });
+
+    // Hiển thị tổng tạm tính mới
+    totalAmountElement.textContent = totalAmount;
+
+    // Lưu giỏ hàng vào localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.4.1.min.js"> </script>
+    <script src="js/bootstrap.bundle.min.js"> </script>
+    <script src="js/products.js"></script>
+</head>
+<script>
+</script>
+
+<body>
+    <div class="container-fluid">
+        <div class="fixed">
+            <div class="container-fluid header-content">
+                <div class="container ">
+                    <div style="height: 80px;" class="row d-flex align-items-center justify-content-center ">
+                        <div class="col-2">
+                            <h3 style="color: white; font-style: italic;">Máy Hút Bụi</h3>
+                        </div>
+                        <div class="col-5">
+                            <form action="" class="d-flex ">
+                                <input placeholder="Tìm kiếm sản phẩm" class="form-control" type="text">
+                                <button style="width: 55px; height: 40px;" class="btn btn-warning"> <img
+                                        src="img/icon/btsearch.png" alt=""> </button>
+                            </form>
+                        </div>
+                        <div class="col-5 d-flex justify-content-between align-items-center">
+                            <div class="sanPhamDaXem d-flex align-items-center justify-content-center">
+                                Sản phẩm đã xem
+                                <i class="bi bi-caret-down"></i>
+                            </div>
+                            <div>
+                                <span>0843176079</span>
+                                <br>
+                                <span>Hotline</span>
+                            </div>
+                            <div class="taiKhoan-gioHang">
+                                <a href="#"><i style="font-size: 30px !important; color: white;"
+                                        class="bi bi-person"></i></a>
+                                <div class="dropdown-content">
+
+                                    <a href="html/dangnhap.html">Đăng nhập</a>
+                                    <br>
+                                    <br>
+
+                                    <a href="html/dangky.html">Đăng ký</a>
+                                </div>
+                            </div>
+                            <div class="taiKhoan-gioHang">
+                                <a href="html/thanhtoan.html" id="cart-icon" onmouseover="showCartItems()">
+                                    <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
+                                    <span style="color: black;" id="cart-item-count"
+                                        class="badge bg-warning rounded-circle">0</span>
+                                </a>
+
+                                <div id="cart-items-container" class="cart-items-container">
+                                    <!-- Danh sách các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 50px;" class="container-fluid header-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 p-0 ">
+                            <a style="text-decoration: none; color: black; width: 200px;" href="#"
+                                class="d-flex align-items-center active ">
+                                <div style="height: 50px; width: 70px;"> <img src="img/icon/Mayhutbui120-120x120.png"
+                                        style="border: 1px solid; border-radius: 50%;" alt="" width="100%"
+                                        height="100%">
+                                </div>
+                                <span style="margin-left: 4px;">Máy hút bụi</span>
+                            </a>
+                        </div>
+                        <div class="col-9 p-0 ">
+
+                            <div class="navbar navbar-expand ">
+                                <ul class="navbar-nav menu">
+                                    <li class="nav-item"><a href="html/gioithieu.html" class="nav-link">Giới thiệu</a>
+                                    </li>
+                                    <li class="nav-item"><a href="html/tintuc.html" class="nav-link">Tin tức</a></li>
+                                    <li class="nav-item"><a href="html/khuyenmai.html" class="nav-link">Khuyễn mãi
+                                            hot</a>
+                                    </li>
+                                    <li class="nav-item"><a href="html/lienhe.html" class="nav-link">Liên hệ</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container anh">
+            <div class="row">
+                <div class="col-8">
+                    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="img/slide/897x350.jpg" class="d-block w-100" alt="Slide 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/slide/Banner_FC_897x350.png" class="d-block w-100" alt="Slide 2">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img src="img/banner/—Pngtree—efficient cleaning 3d illustration of_13340904.jpg" alt=""
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="container hangSanXuat">
+            <h6>Tìm kiếm theo hãng:</h6>
+            <ul class="d-flex">
+                <li class=""><a class="" href="#" onclick="displayProductsByBrand('panasonic')"><img
+                            src="img/panasonic/Panasonic1990-b.png" alt=""></a></li>
+                <li class=""><a class="" href="#" onclick="displayProductsByBrand('hitachi')"><img
+                            src="img/hitachi/Hitachi1990-b30-200x80-1.png" alt=""></a></li>
+                <li class=""><a class="nav-link" href="#" onclick="displayProductsByBrand('derrma')"><img
+                            src="img/derrma/deerma-200x80-1.png" alt=""></a></li>
+                <li class=""><a class="" href="#" onclick="displayProductsByBrand('samsung')"><img
+                            src="img/samsung/Samsung-200x80-1.png" alt=""></a></li>
+                <li class=""><a class="" href="#" onclick="displayProductsByBrand('electrolux')"><img
+                            src="img/selectoux/Electrolux-190x80-13.png" alt=""></a></li>
+                <li class=""><a class="" href="#" onclick="displayProductsByBrand('xiaomi')"><img
+                            src="img/xiaomi/Xiaomi-60-110x60-1.png" alt=""></a></li>
+            </ul>
+        </div>
+
+
+
+        <section>
+            <div class="container mt-5 khungSanPham">
+                <h2 class="heading">Sản Phẩm</h2>
+                <div id="product-container" class="row">
+
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <button id="load-more-button" class="btn btn-dark mt-3">Xem thêm</button>
+            </div>
+        </section>
+
+
+        <footer>
+            <div style="text-align: center;" class="container mt-5">
+                <div class="row">
+                    <div class="col-md-4 ml-3">
+                        <h4>236,Lê Văn Sỹ ,Phường 1 ,Tân Sơn Hòa ,TPHCM</h4>
+                        <p>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</p>
+                        <p>Số điện thoại: 0843176079</p>
+                        <p>Email: 1250070007@sv.hcmunre.edu.com</p>
+
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Liên kết hữu ích</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Sản phẩm</a></li>
+                            <li><a href="#">Giới thiệu</a></li>
+                            <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Thông tin bổ sung</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                            <li><a href="#">Điều khoản và điều kiện</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>© 2024 Máy Hút Bụi - Tất cả các quyền được bảo lưu</p>
+                <p>Hãy để chúng tôi giúp bạn giữ nhà của bạn luôn sạch sẽ và thoải mái!</p>
+            </div>
+        </footer>
+    </div>
+
+
+</sbody>
+
+</html>
