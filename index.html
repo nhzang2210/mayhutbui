@@ -42,18 +42,30 @@
                                 <br>
                                 <span>Hotline</span>
                             </div>
-                            <div class="taiKhoan-gioHang">
-                                <a href="#"><i style="font-size: 30px !important; color: white;"
-                                        class="bi bi-person"></i></a>
-                                <div class="dropdown-content">
+                            <div class="taiKhoan-gioHang" style="position:relative;">
 
-                                    <a href="html/dangnhap.html">Đăng nhập</a>
-                                    <br>
-                                    <br>
+    <a href="#" onclick="toggleMenu()">
+        <i style="font-size: 30px !important; color: white;" class="bi bi-person"></i>
+    </a>
 
-                                    <a href="html/dangky.html">Đăng ký</a>
-                                </div>
-                            </div>
+    <div id="userMenu" class="dropdown-content" style="display:none;">
+
+        <!-- CHƯA LOGIN -->
+        <div id="guestMenu">
+            <a href="html/dangnhap.html">Đăng nhập</a>
+            <a href="html/dangky.html">Đăng ký</a>
+        </div>
+
+        <!-- ĐÃ LOGIN -->
+        <div id="userMenuContent" style="display:none;">
+    <a href="html/my-orders.html"> Đơn hàng của tôi</a>
+    <a href="#" onclick="logout()"> Đăng xuất</a>
+
+</div>
+
+    </div>
+
+</div>
                             <div class="taiKhoan-gioHang">
                                 <a href="html/thanhtoan.html" id="cart-icon" onmouseover="showCartItems()">
                                     <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
@@ -174,10 +186,10 @@
             <div style="text-align: center;" class="container mt-5">
                 <div class="row">
                     <div class="col-md-4 ml-3">
-                        <h4>236,Lê Văn Sỹ ,Phường 1 ,Tân Sơn Hòa,TPHCM</h4>
+                        <h4>236,Lê Văn Sỹ ,Phường 1 ,Tân Sơn Hòa ,TPHCM</h4>
                         <p>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</p>
                         <p>Số điện thoại: 0843176079</p>
-                        <p>Email: 1250070007@sv.hcmunre.edu.vn </p>
+                        <p>Email:1250070007@sv.hcmunre.edu.vn </p>
 
                     </div>
                     <div class="col-md-4">
@@ -206,7 +218,34 @@
         </footer>
     </div>
 
+<script>
+function toggleMenu() {
+    let menu = document.getElementById("userMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
 
-</sbody>
+function checkLogin() {
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        document.getElementById("guestMenu").style.display = "none";
+        document.getElementById("userMenuContent").style.display = "block";
+        document.getElementById("helloUser").innerText =
+            " Xin chào " + user.name;
+    } else {
+        document.getElementById("guestMenu").style.display = "block";
+        document.getElementById("userMenuContent").style.display = "none";
+    }
+}
+
+function logout() {
+    localStorage.removeItem("user");
+    alert("Đã đăng xuất!");
+    location.reload();
+}
+
+checkLogin();
+</script>
+</body>
 
 </html>

@@ -1,261 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh toán</title>
+    <title>Thanh Toán - Máy Hút Bụi</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/jquery-3.4.1.min.js"> </script>
-    <script src="../js/bootstrap.bundle.min.js"> </script>
-    <script src="../js/products.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary: #d70018; --bg: #f8f9fa; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; }
+        .cart-card, .summary-box { background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .checkout-popup { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display:none; justify-content:center; align-items:center; z-index:9999; }
+        .checkout-content { background:white; padding:25px; width:450px; border-radius:20px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .back-home { font-size: 18px; font-weight: 600; text-decoration: none; color: #333; transition: 0.3s; display: flex; align-items: center; cursor: pointer; }
+        .back-home:hover { color: var(--primary); transform: translateX(-5px); }
+        .payment-box { background: #fff9f9; border: 1px dashed #d70018; border-radius: 10px; padding: 10px; display: none; margin-top: 10px; }
+    </style>
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="fixed">
-            <div class="container-fluid header-content">
-                <div class="container ">
-                    <div style="height: 80px;" class="row d-flex align-items-center justify-content-center ">
-                        <div class="col-2">
-                            <h3 style="color: white; font-style: italic;">Máy Hút Bụi</h3>
-                        </div>
-                        <div class="col-5">
-                            <form action="" class="d-flex ">
-                                <input placeholder="Tìm kiếm sản phẩm" class="form-control" type="text">
-                                <button style="width: 55px; height: 40px;" class="btn btn-warning"> <img
-                                        src="../img/icon/btsearch.png" alt=""> </button>
-                            </form>
-                        </div>
-                        <div class="col-5 d-flex justify-content-between align-items-center">
-                            <div class="sanPhamDaXem d-flex align-items-center justify-content-center">
-                                Sản phẩm đã xem
-                                <i class="bi bi-caret-down"></i>
-                            </div>
-                            <div>
-                                <span>0843176079</span>
-                                <br>
-                                <span>Hotline</span>
-                            </div>
-                            <div class="taiKhoan-gioHang">
-                                <a href="#"><i style="font-size: 30px !important; color: white;"
-                                        class="bi bi-person"></i></a>
-                                <div class="dropdown-content">
 
-                                    <a href="html/dangnhap.html">Đăng nhập</a>
-                                    <br>
-                                    <br>
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="../index.html" class="back-home">
+            <i class="bi bi-arrow-left-circle-fill me-2" style="font-size: 1.5rem;"></i> QUAY VỀ TRANG CHỦ
+        </a>
+        <h2 class="fw-bold mb-0">Xác Nhận Đơn Hàng</h2>
+    </div>
 
-                                    <a href="html/dangky.html">Đăng ký</a>
-                                </div>
-                            </div>
-                            <div class="taiKhoan-gioHang">
-                                <a href="#" id="cart-icon" onmouseover="showCartItems()">
-                                    <i style="font-size: 30px !important; color: white;" class="bi bi-cart"></i>
-                                    <span style="color: black;" id="cart-item-count"
-                                        class="badge bg-warning rounded-circle">0</span>
-                                </a>
-
-                                <div id="cart-items-container" class="cart-items-container">
-                                    <!-- Danh sách các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div style="height: 50px;" class="container-fluid header-menu">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-3 p-0 ">
-                            <a style="text-decoration: none; color: black; width: 200px;" href="../index.html"
-                                class="d-flex align-items-center active ">
-                                <div style="height: 50px; width: 70px;"> <img src="../img/icon/Mayhutbui120-120x120.png"
-                                        style="border: 1px solid; border-radius: 50%;" alt="" width="100%"
-                                        height="100%">
-                                </div>
-                                <span style="margin-left: 4px;">Máy hút bụi</span>
-                            </a>
-                        </div>
-                        <div class="col-9 p-0 ">
-
-                            <div class="navbar navbar-expand ">
-                                <ul class="navbar-nav menu">
-                                    <li class="nav-item"><a href="gioithieu.html" class="nav-link">Giới thiệu</a>
-                                    </li>
-                                    <li class="nav-item"><a href="tintuc.html" class="nav-link">Tin tức</a></li>
-                                    <li class="nav-item"><a href="khuyenmai.html" class="nav-link">Khuyễn mãi
-                                            hot</a>
-                                    </li>
-                                    <li class="nav-item"><a href="lienhe.html" class="nav-link">Liên hệ</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container mt-5">
-                <h1 style="font-size: 22px;
-                font-weight: 600;
-                color: #b91409;
-                margin: 5px 0 15px 0;">Giỏ hàng</h1>
-                <form action="">
-                    <table class="table ">
-                        <thead>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="cart-card p-4">
+                <h5 class="fw-bold mb-4 border-bottom pb-2">Danh sách sản phẩm</h5>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
                             <tr>
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
-                                <th>Số lượng</th>
-                                <th>Tạm tính</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Xóa</th>
                             </tr>
                         </thead>
-                        <tbody id="cart-items-table-body">
-                            <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây -->
-                        </tbody>
-                        <tr>
-                            <td colspan="4">
-                                <button id="update-cart-btn"
-                                    style="background-color: #b91409; color: #FFF; line-height: 2.4em; min-height: 2.5em; padding: 0 1.2em;">Cập
-                                    nhật giỏ hàng</button>
-                            </td>
-                            </tr>
+                        <tbody id="cart-items-table-body"></tbody>
                     </table>
-                </form>
-                <div class="row">
-                    <div class="col-6">
-                        <h2>Cộng giỏ hàng</h2>
-                        <h3>Tổng tiền : <span class="total-amount"></span></h3>
-                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="summary-box p-4 text-center">
+                <p class="text-muted mb-1">Tổng cộng thanh toán</p>
+                <h2 class="fw-bold text-danger mb-4" id="final-total">0đ</h2>
+                <button onclick="openCheckout()" class="btn btn-danger w-100 py-3 fw-bold rounded-pill shadow">
+                    TIẾN HÀNH ĐẶT HÀNG
+                </button>
             </div>
         </div>
     </div>
-    <footer>
-        <div style="text-align: center;" class="container mt-5 ">
-            <div class="row">
-                <div class="col-md-4 ml-3">
-                    <h4>236,Lê Văn Sỹ ,Phường 1 ,Tân Sơn Hòa ,TPHCM</h4>
-                        <p>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</p>
-                        <p>Số điện thoại: 0843176079</p>
-                        <p>Email:1250070007@sv.hcmunre.edu.vn </p>
+</div>
 
-                </div>
-                <div class="col-md-4">
-                    <h4>Liên kết hữu ích</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Hướng dẫn sử dụng</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Thông tin bổ sung</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Điều khoản và điều kiện</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
+<div id="checkout-popup" class="checkout-popup">
+    <div class="checkout-content">
+        <span class="btn-close position-absolute end-0 top-0 m-3" style="cursor:pointer" onclick="closeCheckout()"></span>
+        <h4 class="fw-bold text-center mb-3 text-danger">🛒 THÔNG TIN GIAO HÀNG</h4>
+        
+        <div class="mb-2">
+            <label class="small fw-bold">HỌ TÊN</label>
+            <input class="form-control p-2" id="name" placeholder="Tên người nhận">
         </div>
-        <div class="text-center mt-3">
-            <p>© 2026 Máy Hút Bụi - Tất cả các quyền được bảo lưu</p>
-            <p>Hãy để chúng tôi giúp bạn giữ nhà của bạn luôn sạch sẽ và thoải mái!</p>
+        
+        <div class="mb-2">
+            <label class="small fw-bold">SỐ ĐIỆN THOẠI</label>
+            <input class="form-control p-2" id="phone" placeholder="Số điện thoại">
         </div>
-    </footer>
-    <script>
-// Hàm hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính
-document.addEventListener('DOMContentLoaded', function () {
-    var cart = JSON.parse(localStorage.getItem('cart')) || [];
-    var cartItemsTableBody = document.getElementById('cart-items-table-body');
-    var totalAmountElement = document.getElementById('total-amount');
-    var updateCartBtn = document.getElementById('update-cart-btn');
-    // Hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính ban đầu
-    var totalAmount = displayCartItems(cart, cartItemsTableBody);
 
-    // Hiển thị tổng tiền ban đầu
-    totalAmountElement.textContent = totalAmount;
+        <div class="mb-2">
+            <label class="small fw-bold">EMAIL</label>
+            <input class="form-control p-2" id="email" placeholder="Email (nếu có)">
+        </div>
+        
+        <div class="mb-3">
+            <label class="small fw-bold">ĐỊA CHỈ</label>
+            <input class="form-control p-2" id="address" placeholder="Địa chỉ giao hàng">
+        </div>
 
-    // Thêm sự kiện click cho nút "Cập nhật giỏ hàng"
-    updateCartBtn.addEventListener('click', function () {
-        updateCart(cart, cartItemsTableBody, totalAmountElement);
-    });
-});
+        <div class="mb-3">
+            <label class="small fw-bold">PHƯƠNG THỨC THANH TOÁN</label>
+            <select class="form-select p-2" id="payment-method" onchange="togglePaymentBox()">
+                <option value="cod">Tiền mặt khi nhận hàng (COD)</option>
+                <option value="bank">Chuyển khoản / Quét mã QR</option>
+            </select>
+        </div>
 
-// Hàm hiển thị danh sách sản phẩm trong giỏ hàng và tính tổng tạm tính
-function displayCartItems(cart, cartItemsTableBody) {
-    var totalAmount = 0;
+        <div id="payment-box" class="payment-box text-center">
+            <p class="small mb-1 fw-bold text-dark">NGÂN HÀNG TECHCOMBANK</p>
+            <img id="qr-img" src="" alt="QR Thanh toán" style="width: 150px; border-radius: 10px;">
+            <p class="mb-0 mt-1" style="font-size: 10px; color: #555;">Nội dung: ThanhToanDonHang</p>
+        </div>
 
-    // Tạo một đối tượng để theo dõi các sản phẩm trong giỏ hàng đã được hiển thị
-    var displayedProducts = {};
+        <button onclick="placeOrder()" id="btn-submit" class="btn btn-danger w-100 py-3 mt-3 fw-bold rounded-3 shadow">XÁC NHẬN ĐẶT HÀNG</button>
+    </div>
+</div>
 
-    // Lặp qua các sản phẩm trong giỏ hàng
-    cart.forEach(function (item) {
-        // Kiểm tra xem sản phẩm đã được hiển thị trước đó chưa
-        if (!displayedProducts[item.id]) {
-            var productTotal = item.price * item.quantity;
-            totalAmount += productTotal;
+<script>
+    function renderCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let tbody = document.getElementById('cart-items-table-body');
+        tbody.innerHTML = "";
+        let total = 0;
 
-            // Tạo một hàng mới cho sản phẩm
-            var tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${item.title}</td>
-                <td>${item.price}</td>
-                <td><input type="number" id="quantity-${item.id}" value="${item.quantity}" min="1"></td>
-                <td>${productTotal}</td>
-            `;
-            cartItemsTableBody.appendChild(tr);
+        cart.forEach((item, index) => {
+            let p = parseInt(item.price.toString().replace(/\D/g, "")) || 0;
+            let sub = p * (item.quantity || 1);
+            total += sub;
 
-            // Đánh dấu sản phẩm đã được hiển thị
-            displayedProducts[item.id] = true;
+            tbody.innerHTML += `
+                <tr>
+                    <td><div class="fw-bold text-truncate" style="max-width: 200px;">${item.title}</div></td>
+                    <td>${p.toLocaleString()}đ</td>
+                    <td class="text-center">
+                        <input type="number" value="${item.quantity}" min="1" class="form-control form-control-sm d-inline-block text-center" style="width: 55px;" onchange="updateQty(${index}, this.value)">
+                    </td>
+                    <td class="text-end">
+                        <i class="bi bi-trash3-fill text-danger" style="cursor:pointer" onclick="removeItem(${index})"></i>
+                    </td>
+                </tr>`;
+        });
+        document.getElementById('final-total').innerText = total.toLocaleString() + "đ";
+    }
+
+    function togglePaymentBox() {
+        let method = document.getElementById("payment-method").value;
+        let box = document.getElementById("payment-box");
+        let total = document.getElementById('final-total').innerText.replace(/\D/g, "");
+        
+        if (method === "bank") {
+            box.style.display = "block";
+            // Cập nhật QR theo Techcombank của bạn với số tiền động
+            document.getElementById("qr-img").src = `https://img.vietqr.io/image/TCB-0843176079-compact2.png?amount=${total}&addInfo=ThanhToanDonHang`;
+        } else {
+            box.style.display = "none";
         }
-    });
+    }
 
-    return totalAmount;
-}
-// Hàm cập nhật số lượng và tổng tạm tính của giỏ hàng
-function updateCart(cart, cartItemsTableBody, totalAmountElement) {
-    var totalAmount = 0;
+    function updateQty(index, val) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart[index].quantity = Math.max(1, parseInt(val));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+    }
 
-    cart.forEach(function (item) {
-        // Lấy id của ô input số lượng tương ứng với sản phẩm
-        var quantityInputId = `quantity-${item.id}`;
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+    }
 
-        // Lấy giá trị số lượng mới từ ô input
-        var quantityInput = document.getElementById(quantityInputId);
-        var quantity = parseInt(quantityInput.value);
+    function openCheckout() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if(cart.length === 0) return alert("Giỏ hàng của bạn đang trống!");
+        document.getElementById("checkout-popup").style.display = "flex";
+        togglePaymentBox(); // Cập nhật QR nếu đang chọn bank
+    }
 
-        // Cập nhật số lượng sản phẩm trong giỏ hàng
-        item.quantity = quantity;
+    function closeCheckout() { document.getElementById("checkout-popup").style.display = "none"; }
 
-        // Cập nhật tổng tạm tính
-        totalAmount += item.price * item.quantity;
+    async function placeOrder() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let name = document.getElementById("name").value.trim();
+        let phone = document.getElementById("phone").value.trim();
+        let address = document.getElementById("address").value.trim();
+        let email = document.getElementById("email").value.trim() || "khach_le@gmail.com";
 
-        // Cập nhật giá trị trong cột tổng tiền của sản phẩm
-        var productTotalColumn = quantityInput.parentElement.nextElementSibling;
-        productTotalColumn.textContent = item.price * item.quantity;
-    });
+        if (!name || !phone || !address) return alert("Vui lòng điền đủ thông tin giao hàng!");
 
-    // Hiển thị tổng tạm tính mới
-    totalAmountElement.textContent = totalAmount;
+        let cleanedCart = cart.map(i => ({
+            id: i.id,
+            quantity: i.quantity,
+            price: parseInt(i.price.toString().replace(/\D/g, ""))
+        }));
 
-    // Lưu giỏ hàng vào localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
+        let totalAmount = cleanedCart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
 
+        try {
+            let res = await fetch("http://localhost:3000/api/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, phone, address, email, total: totalAmount, cart: cleanedCart })
+            });
 
-    </script>
+            if (res.ok) {
+                alert("✅ ĐẶT HÀNG THÀNH CÔNG!");
+                localStorage.removeItem("cart");
+                closeCheckout();
+                renderCart();
+            } else {
+                alert("❌ Không thể tạo đơn hàng. Vui lòng kiểm tra Server!");
+            }
+        } catch (err) { alert("Lỗi kết nối Server!"); }
+    }
 
+    renderCart();
+</script>
 </body>
-
 </html>

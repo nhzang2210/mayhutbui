@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đơn Hàng Của Tôi - Máy Hút Bụi</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary-red: #d70018; --input-bg: #ebf2ff; }
+        body { background: #f4f4f4; font-family: 'Segoe UI', sans-serif; }
+
+        .top-nav { background: white; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn-back { text-decoration: none; color: #444; font-weight: bold; display: flex; align-items: center; }
+        .btn-back:hover { color: var(--primary-red); }
+
+        .search-card { 
+            background: white; border-radius: 20px; padding: 30px; 
+            max-width: 600px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .form-label { font-weight: 700; color: #555; font-size: 13px; text-transform: uppercase; margin-bottom: 8px; }
+        .custom-input { 
+            background-color: var(--input-bg); border: none; border-radius: 12px; 
+            padding: 12px 20px; font-size: 16px; color: #333; transition: 0.3s;
+        }
+        .custom-input:focus { 
+            background-color: #e0e9fb; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1); outline: none; 
+        }
+
+        .btn-confirm { 
+            background-color: var(--primary-red); color: white; border: none; 
+            border-radius: 12px; padding: 15px; width: 100%; font-weight: bold; 
+            text-transform: uppercase; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-confirm:hover { background-color: #b50014; transform: translateY(-2px); }
+
+        .order-item { 
+            background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px; 
+            border-left: 6px solid #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 800px; margin-left: auto; margin-right: auto;
+            transition: 0.3s;
+        }
+        
+        .status-box { padding: 10px; border-radius: 10px; display: inline-flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .bg-pending { background: #fff4e5; color: #b07d00; }
+        .bg-shipping { background: #e3f2fd; color: #0d47a1; }
+        .bg-completed { background: #e8f5e9; color: #1b5e20; }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="container">
+        <a href="../index.html" class="btn-back">
+            <i class="bi bi-arrow-left-circle-fill me-2 fs-4"></i> QUAY VỀ TRANG CHỦ
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="search-card border-0 shadow-lg">
+        <h4 class="text-center fw-bold mb-4">TRA CỨU ĐƠN HÀNG</h4>
+        <div class="mb-3">
+            <label class="form-label">SỐ ĐIỆN THOẠI HOẶC EMAIL</label>
+<input type="text" id="searchKey" class="form-control custom-input" placeholder="Nhập SĐT hoặc Email đã đặt hàng...">
+        </div>
+        <button onclick="doSearch()" class="btn-confirm shadow">TÌM KIẾM NGAY</button>
+    </div>
+
+    <div id="displayArea"></div>
+</div>
+
+<script>
+    async function doSearch() {
+        const key = document.getElementById('searchKey').value.trim();
+        const area = document.getElementById('displayArea');
+
+        if(!key) return alert("Vui lòng nhập thông tin!");
+
+        area.innerHTML = `<div class="text-center p-5"><div class="spinner-border text-danger"></div></div>`;
+
+        try {
+            // THÊM ?nocache=... ĐỂ ÉP SERVER TRẢ VỀ DỮ LIỆU MỚI NHẤT
+            const res = await fetch(`http://localhost:3000/api/admin/orders-full?nocache=${new Date().getTime()}`);
+            const data = await res.json();
+
+            const myOrders = data.filter(o => 
+                (o.phone && o.phone.includes(key)) || 
+                (o.email && o.email.toLowerCase().includes(key.toLowerCase()))
+            );
+
+            if(myOrders.length === 0) {
+                area.innerHTML = `<div class="alert alert-warning text-center rounded-4 mx-auto" style="max-width:600px;">Không tìm thấy đơn hàng nào.</div>`;
+                return;
+            }
+
+            area.innerHTML = myOrders.map(order => {
+                // LOGIC KIỂM TRA CHẶT CHẼ
+                const isCompleted = String(order.status).toLowerCase() === 'completed';
+                const hasShipper = order.shipper_name && order.shipper_name !== "null";
+
+                let statusText, statusClass, statusIcon, borderCol;
+
+                if (isCompleted) {
+                    statusText = "Giao hàng thành công";
+                    statusClass = "bg-completed"; // Màu xanh lá (định nghĩa ở CSS của bạn)
+                    statusIcon = "bi-check-all";
+                    borderCol = "#27ae60";
+                } else if (hasShipper) {
+                    statusText = "Đang trên đường giao";
+                    statusClass = "bg-shipping"; // Màu xanh dương
+                    statusIcon = "bi-truck";
+                    borderCol = "#3498db";
+                } else {
+                    statusText = "Đang chờ xử lý";
+                    statusClass = "bg-pending"; // Màu vàng
+                    statusIcon = "bi-clock-history";
+                    borderCol = "#f39c12";
+                }
+
+                return `
+                <div class="order-item" style="border-left: 6px solid ${borderCol}; background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold text-dark">Đơn hàng #ORD${order.id}</span>
+<span class="badge bg-light text-dark border">${new Date(order.order_date || order.created_at).toLocaleDateString('vi-VN')}</span>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p class="mb-1"><strong>Khách hàng:</strong> ${order.name}</p>
+                            <p class="mb-2 text-muted small"><strong>Địa chỉ:</strong> ${order.address}</p>
+                            
+                            <div class="status-box ${statusClass}" style="padding: 8px 15px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="bi ${statusIcon}"></i>
+                                <span class="fw-bold text-uppercase" style="font-size: 12px;">${statusText}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                            <div class="text-muted small">Tổng tiền</div>
+                            <h3 class="fw-bold text-danger mb-0">${parseInt(order.total).toLocaleString()}đ</h3>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+        } catch (err) {
+            console.error(err);
+            area.innerHTML = `<div class="alert alert-danger text-center">Lỗi kết nối Server!</div>`;
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đơn Hàng Của Tôi - Máy Hút Bụi</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary: #d70018; --bg: #f4f6f9; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; }
+        
+        .header-section { background: white; padding: 20px 0; shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .back-home { text-decoration: none; color: #333; font-weight: 600; display: flex; align-items: center; }
+        .back-home:hover { color: var(--primary); }
+
+        .search-box { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        
+        .order-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .order-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        
+        .status-badge { padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .status-pending { background: #fff4e5; color: #ff9800; }
+        .status-shipping { background: #e8f4fd; color: #2196f3; }
+        .status-completed { background: #edf7ed; color: #4caf50; }
+        
+        .product-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .product-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+
+<div class="header-section mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="../index.html" class="back-home">
+            <i class="bi bi-arrow-left-circle-fill me-2" style="font-size: 1.5rem;"></i> QUAY VỀ TRANG CHỦ
+        </a>
+        <h3 class="fw-bold mb-0">📦 ĐƠN HÀNG CỦA TÔI</h3>
+    </div>
+</div>
+
+<div class="container">
+    <div class="search-box">
+        <h5 class="fw-bold mb-3"><i class="bi bi-search me-2"></i>Tra cứu đơn hàng</h5>
+        <div class="row g-2">
+            <div class="col-md-9">
+                <input type="text" id="search-input" class="form-control p-3" placeholder="Nhập Số điện thoại hoặc Email để tìm đơn hàng...">
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetchMyOrders()" class="btn btn-danger w-100 py-3 fw-bold shadow-sm">TÌM KIẾM</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-list">
+        <div class="text-center py-5">
+            <i class="bi bi-box-seize text-muted" style="font-size: 4rem;"></i>
+            <p class="text-muted mt-3">Nhập thông tin bên trên để tra cứu lịch sử mua hàng của bạn.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function fetchMyOrders() {
+        const keyword = document.getElementById('search-input').value.trim();
+        const orderList = document.getElementById('order-list');
+
+        if (!keyword) return alert("Vui lòng nhập Số điện thoại hoặc Email!");
+
+        orderList.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-danger"></div><p class="mt-2">Đang tải dữ liệu...</p></div>`;
+
+        try {
+            // Lưu ý: Endpoint này cần khớp với server.js của bạn
+            // Ở đây tôi dùng API lấy tất cả rồi lọc phía client để đơn giản, 
+            // nhưng thực tế nên tạo API riêng: /api/orders/search?keyword=...
+            const res = await fetch(`http://localhost:3000/api/admin/orders-full`); 
+            const orders = await res.json();
+
+            // Lọc đơn hàng theo Email hoặc Số điện thoại người dùng nhập
+            const myOrders = orders.filter(o => 
+                o.phone.includes(keyword) || (o.email && o.email.includes(keyword))
+            );
+
+            if (myOrders.length === 0) {
+                orderList.innerHTML = `
+                    <div class="alert alert-warning text-center p-5 rounded-4 shadow-sm">
+                        <i class="bi bi-exclamation-triangle-fill display-4"></i>
+                        <h4 class="mt-3 fw-bold">Không tìm thấy đơn hàng</h4>
+                        <p class="mb-0">Vui lòng kiểm tra lại Số điện thoại hoặc Email bạn đã dùng khi đặt hàng.</p>
+                    </div>`;
+                return;
+            }
+
+            renderOrders(myOrders);
+        } catch (err) {
+            orderList.innerHTML = `<div class="alert alert-danger">Lỗi kết nối server: ${err.message}</div>`;
+        }
+    }
+
+    function renderOrders(orders) {
+        const orderList = document.getElementById('order-list');
+        orderList.innerHTML = "";
+
+        orders.forEach(order => {
+            // Giả lập trạng thái dựa trên dữ liệu (nếu DB của bạn chưa có cột status)
+            const statusClass = order.shipper_name ? "status-shipping" : "status-pending";
+            const statusText = order.shipper_name ? `Đang giao (${order.shipper_name})` : "Chờ xác nhận";
+
+            orderList.innerHTML += `
+                <div class="order-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3 border-bottom pb-2">
+                        <div>
+                            <span class="text-muted small">Mã đơn hàng:</span>
+                            <span class="fw-bold">#ORD${order.id}</span>
+                            <div class="text-muted small mt-1"><i class="bi bi-calendar3 me-1"></i> ${new Date(order.order_date).toLocaleString('vi-VN')}</div>
+                        </div>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <p class="mb-1"><strong>Người nhận:</strong> ${order.name}</p>
+                            <p class="mb-1 text-muted small"><strong>Địa chỉ:</strong> ${order.address}</p>
+                            <p class="mb-0 text-muted small"><strong>SĐT:</strong> ${order.phone}</p>
+                        </div>
+                        <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                            <span class="text-muted">Tổng thanh toán:</span>
+                            <h4 class="fw-bold text-danger mb-0">${parseInt(order.total).toLocaleString()}đ</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" onclick="toggleDetails(${order.id})">
+                            Xem chi tiết sản phẩm <i class="bi bi-chevron-down ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function toggleDetails(orderId) {
+        alert("Tính năng đang phát triển: Xem chi tiết sản phẩm cho đơn #" + orderId);
+    }
+</script>
+
+</body>
+</html>

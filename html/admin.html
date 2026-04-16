@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hệ Thống Quản Trị - Máy Hút Bụi</title>
+
+
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+    <style>
+
+        :root {
+
+            --primary-color: #b91409;
+
+            --bg-body: #f4f7f6;
+
+        }
+
+        body { background-color: var(--bg-body); font-family: 'Segoe UI', sans-serif; }
+
+        .admin-header { background: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+        .stat-card {
+
+            background: white; border-radius: 15px; padding: 20px; border: none;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s;
+
+        }
+
+        .stat-card:hover { transform: translateY(-5px); }
+
+        .icon-box {
+
+            width: 55px; height: 55px; border-radius: 12px;
+
+            display: flex; align-items: center; justify-content: center; font-size: 24px; margin-right: 15px;
+
+        }
+
+        .bg-red-light { background: rgba(185, 20, 9, 0.1); color: #b91409; }
+
+        .bg-blue-light { background: rgba(13, 110, 253, 0.1); color: #0d6efd; }
+
+        .content-box { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-top: 25px; }
+
+        .table thead { background: #f8f9fa; }
+
+        .badge-shipper { font-size: 12px; padding: 6px 12px; border-radius: 20px; }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<div class="container py-4">
+
+    <div class="admin-header d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h4 class="fw-bold mb-0 text-uppercase" style="color: var(--primary-color);">Bảng Điều Khiển Admin</h4>
+
+            <small class="text-muted">Quản lý kinh doanh & Điều phối giao hàng</small>
+
+        </div>
+
+        <div class="d-flex align-items-center">
+
+            <span class="me-3 fw-bold">Xin chào, Quản trị viên</span>
+
+            <i class="bi bi-person-circle h3 mb-0 text-secondary"></i>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            <div class="stat-card d-flex align-items-center">
+
+                <div class="icon-box bg-red-light"><i class="bi bi-currency-dollar"></i></div>
+
+                <div>
+
+                    <span class="text-muted small fw-bold text-uppercase">Doanh Thu</span>
+
+                    <p class="h4 fw-bold mb-0" id="total-revenue">0 đ</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="stat-card d-flex align-items-center">
+
+                <div class="icon-box bg-blue-light"><i class="bi bi-cart-check"></i></div>
+
+                <div>
+
+                    <span class="text-muted small fw-bold text-uppercase">Số Đơn Hàng</span>
+
+                    <p class="h4 fw-bold mb-0" id="total-orders">0 đơn</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="content-box">
+
+        <h5 class="fw-bold mb-4"><i class="bi bi-graph-up text-primary me-2"></i>Xu Hướng Doanh Thu</h5>
+
+        <canvas id="revenueChart" style="max-height: 300px;"></canvas>
+
+    </div>
+
+
+
+    <div class="content-box">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h5 class="fw-bold mb-0"><i class="bi bi-truck text-danger me-2"></i>Quản Lý Giao Hàng</h5>
+
+            <button onclick="loadAdminData()" class="btn btn-sm btn-outline-dark"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+
+        </div>
+
+       
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã Đơn</th>
+
+                        <th>Khách Hàng</th>
+
+                        <th>Địa Chỉ & SĐT</th>
+
+                        <th>Tổng Tiền</th>
+
+                        <th>Shipper Giao</th>
+
+                        <th>Hành Động</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="order-list">
+
+                    </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="shipperModal" tabindex="-1">
+
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header border-0">
+
+                <h6 class="modal-title fw-bold">Điều phối Shipper</h6>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="selected-order-id">
+
+                <label class="small mb-2 fw-bold">Chọn nhân viên giao hàng:</label>
+
+                <select id="shipper-select" class="form-select"></select>
+
+            </div>
+
+            <div class="modal-footer border-0">
+
+                <button onclick="confirmAssign()" class="btn btn-danger w-100">Xác nhận gán đơn</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="../js/jquery-3.4.1.min.js"></script>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
+
+
+
+<script>
+
+    let myChart;
+
+
+
+    async function loadAdminData() {
+
+        await loadStats();
+
+        await loadOrders();
+
+        await loadChart();
+
+    }
+
+
+
+    async function loadStats() {
+
+        try {
+
+            const res = await fetch("http://localhost:3000/api/stats");
+
+            const data = await res.json();
+
+            document.getElementById("total-revenue").innerText = Number(data.revenue).toLocaleString() + " đ";
+
+            document.getElementById("total-orders").innerText = data.totalOrders + " đơn";
+
+        } catch (err) { console.error("Lỗi stats:", err); }
+
+    }
+
+
+
+    async function loadOrders() {
+        try {
+            // 1. Load danh sách Shipper cho Modal
+            const resShip = await fetch("http://localhost:3000/api/shippers");
+            const shippers = await resShip.json();
+            document.getElementById("shipper-select").innerHTML = shippers.map(s => 
+                `<option value="${s.id}">${s.shipper_name} (${s.phone})</option>`).join('');
+
+            // 2. Load đơn hàng
+            const resOrder = await fetch("http://localhost:3000/api/admin/orders-full");
+            const orders = await resOrder.json();
+            
+            // 3. Đổ dữ liệu vào bảng
+            const html = orders.map(o => {
+                // Kiểm tra trạng thái
+                const isCompleted = (o.status === 'completed');
+                const hasShipper = (o.shipper_name !== null && o.shipper_name !== undefined && o.shipper_name !== "");
+
+                return `
+                <tr>
+                    <td><span class="badge bg-dark">#${o.id}</span></td>
+                    <td><div class="fw-bold">${o.name}</div><small class="text-muted">${o.email || ''}</small></td>
+                    <td>
+                        <div class="small">${o.address}</div>
+                        <div class="small fw-bold text-primary">${o.phone}</div>
+                    </td>
+                    <td class="text-danger fw-bold">${Number(o.total).toLocaleString()}đ</td>
+                    <td>
+                        ${isCompleted ? 
+                            `<span class="badge bg-success badge-shipper"><i class="bi bi-check-circle"></i> Đã hoàn thành</span>` : 
+                            (hasShipper ? 
+                                `<span class="badge bg-primary badge-shipper"><i class="bi bi-bicycle"></i> ${o.shipper_name}</span>` : 
+                                `<span class="badge bg-warning text-dark badge-shipper">Đang chờ gán...</span>`)
+                        }
+                    </td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            ${isCompleted ? `
+                                <span class="badge bg-light text-success border"><i class="bi bi-check-all"></i> ĐÃ GIAO</span>
+                            ` : (hasShipper ? `
+                                <button onclick="completeOrder(${o.id})" class="btn btn-sm btn-success fw-bold px-3">
+                                    XONG
+                                </button>
+                            ` : `
+                                <button onclick="openAssignModal(${o.id})" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-person-plus"></i> Gán
+                                </button>
+                            `)}
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+            
+            document.getElementById("order-list").innerHTML = html || '<tr><td colspan="6" class="text-center">Chưa có đơn hàng nào.</td></tr>';
+        } catch (err) { console.error("Lỗi đơn hàng:", err); }
+    }
+
+
+    // Hàm xác nhận hoàn thành đơn
+
+    async function completeOrder(orderId) {
+
+        if (!confirm("Xác nhận đơn hàng này đã giao thành công?")) return;
+
+        try {
+
+            const response = await fetch(`http://localhost:3000/api/admin/orders/${orderId}/status`, {
+
+                method: "PUT",
+
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({ status: 'completed' })
+
+            });
+
+
+
+            if (response.ok) {
+
+                alert("✅ Đã cập nhật trạng thái đơn hàng thành công!");
+
+                loadAdminData(); // Tải lại toàn bộ dữ liệu để cập nhật biểu đồ & bảng
+
+            }
+
+        } catch (err) { alert("Lỗi kết nối server!"); }
+
+    }
+
+
+
+    async function loadChart() {
+
+        try {
+
+            const res = await fetch("http://localhost:3000/api/chart");
+
+            const data = await res.json();
+
+            const labels = data.map(i => i.date);
+
+            const values = data.map(i => i.total);
+
+
+
+            if (myChart) myChart.destroy();
+
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+
+            myChart = new Chart(ctx, {
+
+                type: 'line',
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [{
+
+                        label: 'Doanh thu (VND)',
+
+                        data: values,
+
+                        borderColor: '#b91409',
+
+                        backgroundColor: 'rgba(185, 20, 9, 0.1)',
+
+                        fill: true,
+
+                        tension: 0.4,
+
+                        borderWidth: 3
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    plugins: { legend: { display: false } },
+
+                    scales: { y: { beginAtZero: true } }
+
+                }
+
+            });
+
+        } catch (err) { console.error("Lỗi biểu đồ:", err); }
+
+    }
+
+
+
+    function openAssignModal(orderId) {
+
+        document.getElementById("selected-order-id").value = orderId;
+
+        const modal = new bootstrap.Modal(document.getElementById('shipperModal'));
+
+        modal.show();
+
+    }
+
+
+
+    async function confirmAssign() {
+
+        const orderId = document.getElementById("selected-order-id").value;
+
+        const shipperId = document.getElementById("shipper-select").value;
+
+
+
+        try {
+
+            const res = await fetch("http://localhost:3000/api/assign-shipper", {
+
+                method: "POST",
+
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({ orderId, shipperId })
+
+            });
+
+
+
+            if (res.ok) {
+
+                alert("✅ Đã gán đơn cho shipper thành công!");
+
+                bootstrap.Modal.getInstance(document.getElementById('shipperModal')).hide();
+
+                loadOrders();
+
+            }
+
+        } catch (err) { alert("❌ Lỗi kết nối server!"); }
+
+    }
+
+
+
+    loadAdminData();
+
+</script>
+
+</body>
+
+</html>
